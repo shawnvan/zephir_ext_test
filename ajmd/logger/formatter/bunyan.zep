@@ -7,9 +7,11 @@ use Ajmd\Logger;
 class Bunyan extends Formatter
 {
     //{"name":"account","hostname":"dev-ms-p-api3","pid":7301,"id":"ctx","level":30,"ctx":{"apiName":"GetUserTitle","requestId":"2d0b5465-b3bd-41cc-8f2d-2a05e9671b45","correlationId":"dde661ab-f480-4986-911b-11117a2289c0","previousRequestId":"a37c6474-4400-4a10-b1ad-a769b63a2811"},"responseTime":1538215076964,"duration":5,"msg":"end ServerContext","time":"2018-09-29T09:57:56.964Z","v":0}
-    protected _dateFormat = "Y-m-d\TH:i:s" { get, set };
+    protected _dateFormat = "D, d M y H:i:s O" { get, set };
 
     protected _bunyanEvent = [] {get,set};
+
+    protected _requestId;
 
     const BUNYAN_VERSION = 0;
 
@@ -50,6 +52,11 @@ class Bunyan extends Formatter
      */
     const LEVEL_TRACE = 10;
 
+    public function __construct()
+    {
+        let this->_requestId = uniqid();
+    }
+
     public function format(string message, int type, int timestamp, var context =  null) -> string
     {
         
@@ -61,6 +68,7 @@ class Bunyan extends Formatter
         //
         let this->_bunyanEvent = [
             "name": "ajmd",
+            "requestId" : this->_requestId,
             "level": this->_logLevelMapping(type),
             "msg": message,
             "hostname" : gethostname(),
