@@ -11,7 +11,7 @@ class Bunyan extends Formatter
 
     protected _bunyanEvent = [] {get,set};
 
-    protected _requestId;
+    protected _correlationId;
 
     const BUNYAN_VERSION = 0;
 
@@ -68,7 +68,7 @@ class Bunyan extends Formatter
         //
         let this->_bunyanEvent = [
             "name": "ajmd",
-            "requestId" : this->_requestId,
+            "correlationId" : this->_correlationId,
             "level": this->_logLevelMapping(type),
             "msg": message,
             "hostname" : gethostname(),
