@@ -54,7 +54,7 @@ class Bunyan extends Formatter
 
     public function __construct()
     {
-        let this->_requestId = uniqid();
+        let this->_correlationId = this->_generateUuid();
     }
 
     public function format(string message, int type, int timestamp, var context =  null) -> string
@@ -116,5 +116,17 @@ class Bunyan extends Formatter
 
         }
         return self::LEVEL_INFO;
+    }
+
+    private function _generateUuid() -> string
+    {
+        var randStr ,uuid;
+        let randStr = md5(uniqid(mt_rand()), false);
+        let uuid = substr(randStr,0,8)."-";
+        let uuid .= substr(randStr,8,4)."-";
+        let uuid .= substr(randStr,12,4)."-";
+        let uuid .= substr(randStr,16,4)."-";
+        let uuid .= substr(randStr,20,12);
+        return uuid;
     }
 }

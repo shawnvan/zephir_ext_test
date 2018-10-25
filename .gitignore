@@ -1,0 +1,7 @@
+/.temp
+/ext
+*.log
+test.ini
+test.php
+config.php
+/ide
