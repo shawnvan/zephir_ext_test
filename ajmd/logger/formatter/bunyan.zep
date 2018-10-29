@@ -3,6 +3,7 @@ namespace Ajmd\Logger\Formatter;
 
 use Ajmd\Logger\Formatter;
 use Ajmd\Logger;
+use Ajmd\Uuid;
 
 class Bunyan extends Formatter
 {
@@ -120,13 +121,6 @@ class Bunyan extends Formatter
 
     private function _generateUuid() -> string
     {
-        var randStr ,uuid;
-        let randStr = md5(uniqid(mt_rand()), false);
-        let uuid = substr(randStr,0,8)."-";
-        let uuid .= substr(randStr,8,4)."-";
-        let uuid .= substr(randStr,12,4)."-";
-        let uuid .= substr(randStr,16,4)."-";
-        let uuid .= substr(randStr,20,12);
-        return uuid;
+        return Uuid::generateId();
     }
 }
